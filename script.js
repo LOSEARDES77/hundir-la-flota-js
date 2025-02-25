@@ -115,7 +115,6 @@ class Tablero {
     markHit(celda) {
         const row = parseInt(celda.id[1]);
         const col = parseInt(celda.id[2]);
-        console.log(row, col);
 
         const ship = this.ships.find(ship => {
             if (ship.orientation === 'horizontal') {
@@ -124,7 +123,7 @@ class Tablero {
                 return ship.col === col && row >= ship.row && row < ship.row + ship.size;
             }
         });
-        console.log(ship);
+
         if (ship) {
             ship.hits++;
             if (ship.hits === ship.size) {
