@@ -144,8 +144,10 @@ class Tablero {
     checkAllShipsSunk() {
         const allSunk = this.ships.every(ship => ship.hits === ship.size);
         if (allSunk) {
-            alert('¡Todos los barcos han sido hundidos!');
-            window.location.reload();
+            setTimeout(() => {
+                alert('¡Todos los barcos han sido hundidos!');
+                window.location.reload();
+            }, 500);
         }
     }
 }
