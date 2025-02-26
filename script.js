@@ -106,9 +106,11 @@ class Tablero {
                 celda.innerHTML = 'X';
                 this.markHit(celda);
                 this.checkAllShipsSunk();
+                mostrarMensaje(resultado);
             } else {
                 celda.classList.add('ship-miss');
                 celda.innerHTML = 'A';
+                mostrarMensaje('💧 Agua 💧');
             }
         }
     }
@@ -127,8 +129,10 @@ class Tablero {
 
         if (ship) {
             ship.hits++;
+            mostrarMensaje('🩸 TOCADO 🩸');
             if (ship.hits === ship.size) {
                 this.markSunkShip(ship);
+                mostrarMensaje('💣 TOCADO Y HUNDIDO. HURRA! 💣');
             }
         }
     }
@@ -152,6 +156,13 @@ class Tablero {
         }
     }
 }
+
+function mostrarMensaje(mensaje) {
+    const divMensaje = document.getElementById("mensaje");
+    if(divMensaje) {
+      divMensaje.innerText = mensaje;
+    }
+  }
 
 window.onload = () => {
     const jugador = new Jugador();
