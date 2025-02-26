@@ -101,6 +101,7 @@ class Tablero {
         const celda = e.target;
         if (this.jugador.turno === 'Amarillo') {
             if (celda.classList.contains('hidden-ship')) {
+                if (celda.classList.contains('ship-hit') || celda.classList.contains('ship-miss')) return;
                 celda.classList.add('ship-hit');
                 celda.innerHTML = 'X';
                 this.markHit(celda);
