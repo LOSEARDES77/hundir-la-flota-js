@@ -1,16 +1,16 @@
 class Jugador {
     constructor() {
         this.element = document.getElementById('turno');
-        this.turno = 'Rojo';
+        this.turno = true; // True: Rojo, False: Amarillo
         this.actualizarTurno();
     }
 
     actualizarTurno() {
-        this.element.innerHTML = `Turno del jugador <span style='color: ${this.turno === 'Rojo' ? 'red' : 'yellow'};'>${this.turno}</span>`;
+        this.element.innerHTML = `Turno de <span style='color: ${this.turno ? '#ff0000' : '#ffff00'};'>${this.turno ? 'Barba Roja' : 'Pata de Palo'}</span>`;
     }
 
     cambiarTurno() {
-        this.turno = this.turno === 'Rojo' ? 'Amarillo' : 'Rojo';
+        this.turno = !this.turno;
         this.actualizarTurno();
     }
 }
@@ -22,6 +22,7 @@ class Tablero {
         this.ships = [];
         this.barcosColocados = 0;
         this.jugador = jugador;
+        this.clicks = 0;
     }
 
     crearTablero() {
@@ -99,14 +100,15 @@ class Tablero {
 
     handleClick(e) {
         const celda = e.target;
+        document.getElementById('clicks').innerText = `LLevas ${this.clicks} disparos.`;
         if (this.jugador.turno === 'Amarillo') {
             if (celda.classList.contains('hidden-ship')) {
                 if (celda.classList.contains('ship-hit') || celda.classList.contains('ship-miss')) return;
+                this.clicks++;
                 celda.classList.add('ship-hit');
                 celda.innerHTML = 'X';
                 this.markHit(celda);
                 this.checkAllShipsSunk();
-                mostrarMensaje(resultado);
             } else {
                 celda.classList.add('ship-miss');
                 celda.innerHTML = 'A';
